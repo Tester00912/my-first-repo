@@ -63,14 +63,64 @@ PROJECT_NAME="my-react-app"
 # Move to the workspace directory
 cd "$WORKSPACE" || exit 1
 
-# Create a new React app
-npx create-react-app $PROJECT_NAME
-
-# Confirm success
-if [ $? -eq 0 ]; then
-  echo "React project \'$PROJECT_NAME\' created successfully."
+# Check if the project directory already exists
+if [ -d "$PROJECT_NAME" ]; then
+  echo "React project \'$PROJECT_NAME\' already exists. Skipping creation."
 else
-  echo "Failed to create React project." >&2
+  # Create a new React app
+  npx create-react-app "$PROJECT_NAME"
+  
+  # Confirm success
+  if [ $? -eq 0 ]; then
+    echo "React project \'$PROJECT_NAME\' created successfully."
+  else
+    echo "Failed to create React project." >&2
+    exit 1
+  fi
+fi
+'''
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh '''#!/bin/bash
+
+# Define the name of the Dockerfile
+DOCKERFILE_NAME="Dockerfile"
+
+# Check if a Dockerfile already exists to avoid overwriting
+if [ -f "$DOCKERFILE_NAME" ]; then
+  echo "Dockerfile already exists. Exiting to avoid overwriting."
+  exit 1
+fi
+
+# Create the Dockerfile
+cat <<EOL > $DOCKERFILE_NAME
+# Use the official Node.js image as the base
+FROM node:18
+
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json (if available)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the application source code
+COPY . .
+
+# Run tests using Jest
+CMD ["npm", "test"]
+EOL
+
+# Confirm the Dockerfile creation
+if [ -f "$DOCKERFILE_NAME" ]; then
+  echo "Dockerfile created successfully."
+else
+  echo "Failed to create Dockerfile." >&2
   exit 1
 fi
 '''
