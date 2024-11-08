@@ -17,24 +17,35 @@ pipeline {
 
         stage('Front-End Dependencies Installation') {
           steps {
-            sh '''# Update the package list
-sudo apt update
+            sh '''#!/bin/bash
 
-# Install Node.js (LTS version) using sudo without the -E flag
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -
+# Update system and install dependencies
+echo "Updating system..."
+sudo apt-get update -y
+sudo apt-get upgrade -y
 
-# Install Node.js and npm
-sudo apt-get install -y nodejs npm
+# Install Node.js and npm if not already installed
+echo "Installing Node.js and npm..."
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
-# Install npm globally
-sudo npm install -g npm@latest
+# Install project dependencies
+echo "Installing dependencies..."
+npm install
 
-# Create a new React app
-npx create-react-app my-app
+# Run tests (you can replace this with your test command)
+echo "Running tests..."
+npm test
 
-# Install react-router-dom in the new React app
-cd my-app
-npm install react-router-dom
+# Build the application (if applicable)
+echo "Building the application..."
+npm run build
+
+# Start the application (if applicable)
+echo "Starting the application..."
+npm start
+
+echo "Script completed successfully!"
 '''
           }
         }
