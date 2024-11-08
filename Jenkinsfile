@@ -55,7 +55,24 @@ echo "Script completed successfully!"
 
     stage('Front-End Unit Tests') {
       steps {
-        sh '''sudo bash -c "cd /root/curriculum-app/curriculum-front/ && npm i"
+        sh '''#!/bin/bash
+
+# Define the project name
+PROJECT_NAME="my-react-app"
+
+# Move to the workspace directory
+cd "$WORKSPACE" || exit 1
+
+# Create a new React app
+npx create-react-app $PROJECT_NAME
+
+# Confirm success
+if [ $? -eq 0 ]; then
+  echo "React project \'$PROJECT_NAME\' created successfully."
+else
+  echo "Failed to create React project." >&2
+  exit 1
+fi
 '''
       }
     }
