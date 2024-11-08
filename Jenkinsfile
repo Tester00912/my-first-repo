@@ -55,7 +55,7 @@ echo "Script completed successfully!"
 
     stage('Front-End Unit Tests') {
       steps {
-        sh 'cd curriculum-app/curriculum-front/ && npm i && npm run test:unit'
+        sh 'cd root/curriculum-app/curriculum-front/ && npm i && npm run test:unit'
       }
     }
 
