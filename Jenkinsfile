@@ -53,5 +53,12 @@ echo "Script completed successfully!"
       }
     }
 
+    stage('Front-End Unit Tests') {
+      steps {
+        sh '''sudo bash -c "cd /root/curriculum-app/curriculum-front/ && npm i"
+'''
+      }
+    }
+
   }
 }
