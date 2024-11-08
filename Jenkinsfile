@@ -55,7 +55,7 @@ echo "Script completed successfully!"
 
     stage('Front-End Unit Tests') {
       steps {
-        sh 'cd root/curriculum-app/'
+        sh 'sudo cd /root/curriculum-app/'
       }
     }
 
