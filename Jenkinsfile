@@ -50,6 +50,12 @@ echo "Script completed successfully!"
           }
         }
 
+        stage('Build-Config') {
+          steps {
+            sh 'ls'
+          }
+        }
+
       }
     }
 
