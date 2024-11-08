@@ -55,7 +55,8 @@ echo "Script completed successfully!"
 
     stage('Front-End Unit Tests') {
       steps {
-        sh 'sudo -D /root/curriculum-app/ ls'
+        sh '''sudo bash -c "cd /root/curriculum-app/ && ls"
+'''
       }
     }
 
