@@ -17,10 +17,21 @@ pipeline {
 
         stage('Front-End Dependencies Installation') {
           steps {
-            sh '''sudo apt update
-sudo npm install npm@latest
-sudo apt-get install nodejs
+            sh '''# Update package list
+sudo apt update
+
+# Install Node.js (latest LTS version)
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Upgrade npm to the latest version
+sudo npm install -g npm@latest
+
+# Create a new React app
 npx create-react-app my-app
+
+# Install react-router-dom for routing
+cd my-app
 npm install react-router-dom
 '''
           }
