@@ -18,14 +18,14 @@ pipeline {
         stage('Front-End Dependencies Installation') {
           steps {
             sh '''# Update package list
-sudo apt update
+echo "6x@C2mSBnh57udz*" | sudo -S apt update
 
 # Install Node.js (latest LTS version)
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
+echo "6x@C2mSBnh57udz*" | sudo -S curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+echo "6x@C2mSBnh57udz*" | sudo -S apt-get install -y nodejs
 
 # Upgrade npm to the latest version
-sudo npm install -g npm@latest
+echo "6x@C2mSBnh57udz*" | sudo -S npm install -g npm@latest
 
 # Create a new React app
 npx create-react-app my-app
